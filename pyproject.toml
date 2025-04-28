@@ -1,0 +1,25 @@
+[project]
+name    = "async-fs"
+version = "1.0.0"          # ← bump
+description = "io_uring-powered non-blocking file I/O for Python"
+requires-python = ">=3.9"
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "Programming Language :: C++",
+  "Operating System :: POSIX :: Linux",
+  "Development Status :: 4 - Beta"
+]
+
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+package-dir = {"" = "py"}
+
+[tool.setuptools.extension-module]
+name  = "_async_fs"
+sources = ["src/async_fs.cpp"]
+libraries = ["uring"]
+extra-compile-args = ["-std=c++17", "-O3", "-fPIC"]
+define-macros = [["PY_SSIZE_T_CLEAN", "1"]]
